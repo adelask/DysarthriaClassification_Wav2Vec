@@ -4,12 +4,12 @@ import torchaudio
 import os
 import csv
 import time
-import representations.representation_extraction as extraction
+from representations.representation_extraction import extract_features
 
 
 start_time = time.time()
 
-dataset = 'PC-GITA'             # 'English' or 'PC-GITA'
+dataset = 'PC-GITA'                         # 'English' or 'PC-GITA'
 
 model_label = 'w2v1'                        # 'w2v1' or 'w2v2'
 representation_level = 'FeatureExtractor'   # 'FeatureExtractor' or 'FeatureAggregator' or 'LastHiddenState' or 'TransformerLayer'
@@ -61,7 +61,7 @@ def get_speech_representations(folder_path, writer, dataset, speaker_class, spee
                 audio_input = original_audio
 
             # features extraction
-            final_repre = extraction.extract_features(model, model_label, representation_level, transformer_layer, pooling, audio_input)
+            final_repre = extract_features(model, model_label, representation_level, transformer_layer, pooling, audio_input)
 
             end_audio_time = time.time()
             RunTime = end_audio_time - start_audio_time
@@ -123,3 +123,5 @@ end_time = time.time()
 
 run_time = end_time - start_time
 print(f"Run time: {run_time} second")
+
+
